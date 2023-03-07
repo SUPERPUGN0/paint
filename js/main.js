@@ -3,17 +3,39 @@ const buildCanvas = (columns, rows, parentContainerId) => {
 
     // Set canvas parent container
     const pContainer = document.getElementById(parentContainerId);
-    const canvasDiv = document.createElement('div');
 
     // Set canvas columns and rows
     pContainer.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
     pContainer.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
 
-    // Append empty divs to the grid
+    // Check if mouseDown
+    let mouseDown;
+    pContainer.addEventListener('mousedown', () => {
+        mouseDown = true;
+    });
+
+    pContainer.addEventListener('mouseup', () => {
+        mouseDown = false;
+    });
+
+    // Append empty divs and listeners to the grid
     for (let i = 0; i < columns * rows; i++) {
-        pContainer.appendChild(canvasDiv)
+
+        // Create div, like pixel in a display
+        const canvasDiv = document.createElement('div');
+
+        pContainer.appendChild(canvasDiv);
+        canvasDiv.addEventListener('mouseover', () => {
+
+            if (mouseDown) {
+                canvasDiv.style.backgroundColor = 'black';
+            }
+        });
+
     }
+
 }
 
 // Build canvas
-buildCanvas(100, 50, 'canvas')
+buildCanvas(200, 100, 'canvas')
+
