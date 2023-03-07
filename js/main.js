@@ -1,41 +1,52 @@
-// Function build canvas and needs cols and rows numbers and parentContainerId that must has a fixed height
-const buildCanvas = (columns, rows, parentContainerId) => {
+// Build canvas
+const buildCanvas = (widthPx, heightPx, parentContainerId) => {
 
     // Set canvas parent container
     const pContainer = document.getElementById(parentContainerId);
 
-    // Set canvas columns and rows
-    pContainer.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
-    pContainer.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+    // Create and append canvas
+    const canvas = document.createElement('div');
+    canvas.id = 'canvas';
+    canvas.style.width = widthPx + 'px';
+    canvas.style.height = heightPx + 'px';
+    pContainer.appendChild(canvas);
+
+    // Return canvas ID
+    return canvas.id
+}
+
+// Add event listener to canvas
+const turnOnCanvas = (canvasId) => {
+
+    // Set canvas and apply border color
+    const canvas = document.getElementById(canvasId);
+    canvas.style.border = '2px solid black';
 
     // Check if mouseDown
     let mouseDown;
-    pContainer.addEventListener('mousedown', () => {
+    canvas.addEventListener('mousedown', () => {
         mouseDown = true;
     });
 
-    pContainer.addEventListener('mouseup', () => {
+    canvas.addEventListener('mouseup', () => {
         mouseDown = false;
     });
 
-    // Append empty divs and listeners to the grid
-    for (let i = 0; i < columns * rows; i++) {
-
-        // Create div, like pixel in a display
-        const canvasDiv = document.createElement('div');
-
-        pContainer.appendChild(canvasDiv);
-        canvasDiv.addEventListener('mouseover', () => {
-
-            if (mouseDown) {
-                canvasDiv.style.backgroundColor = 'black';
-            }
-        });
-
-    }
+    // Add container listener
+    canvas.addEventListener('mousemove', (e) => {
+        if (mouseDown) {
+            const cell = document.createElement('div');
+            canvas.appendChild(cell);
+            cell.style.position = 'absolute';
+            cell.style.left = e.clientX + 'px';
+            cell.style.top = e.clientY + 'px';
+            cell.style.backgroundColor = 'red';
+            cell.style.width = '20px';
+            cell.style.height = '20px';
+            cell.style.borderRadius = '50%';
+        }
+    })
 
 }
 
-// Build canvas
-buildCanvas(200, 100, 'canvas')
-
+turnOnCanvas(buildCanvas(2000, 200, 'canvas'));
