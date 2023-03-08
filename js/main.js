@@ -1,5 +1,5 @@
 // Build canvas
-const buildCanvas = (widthPx, heightPx, parentContainerId) => {
+const buildCanvas = (parentContainerId) => {
 
     // Set canvas parent container
     const pContainer = document.getElementById(parentContainerId);
@@ -7,8 +7,8 @@ const buildCanvas = (widthPx, heightPx, parentContainerId) => {
     // Create and append canvas
     const canvas = document.createElement('div');
     canvas.id = 'canvas';
-    canvas.style.width = widthPx + 'px';
-    canvas.style.height = heightPx + 'px';
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
     pContainer.appendChild(canvas);
 
     // Return canvas ID
@@ -49,4 +49,4 @@ const turnOnCanvas = (canvasId) => {
 
 }
 
-turnOnCanvas(buildCanvas(2000, 200, 'canvas'));
+turnOnCanvas(buildCanvas('canvas'));

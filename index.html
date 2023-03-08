@@ -6,12 +6,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./resources/css/index.css">
-    <title>Document</title>
+    <title>Paint</title>
 </head>
 
 <body>
     <header>
         <h1>Paint</h1>
+        <section id="toolbar">
+            <!-- Brush size-->
+            <div id="brush-container">
+                <label for="brush-size">Brush Size</label>
+                <input id="brush-size" type="number">
+            </div>
+
+            <!-- Colors-->
+            <div id="colors">
+                <div id="FFA07A" class="color"></div>
+                <div id="FF8C00" class="color"></div>
+                <div id="FF7F50" class="color"></div>
+                <div id="FF6347" class="color"></div>
+                <div id="FF4500" class="color"></div>
+                <div id="FFA500" class="color"></div>
+                <div id="FFD700" class="color"></div>
+                <div id="FFDEAD" class="color"></div>
+                <div id="FFE4B5" class="color"></div>
+                <div id="FFEC8B" class="color"></div>
+            </div>
+
+            <!-- Dark Mode Toggle-->
+            <div id="dark-mode-toggle-container">
+                <div id="circle"></div>
+            </div>
+
+        </section>
     </header>
     <main>
         <section id="tools"></section>
