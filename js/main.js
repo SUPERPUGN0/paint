@@ -1,3 +1,5 @@
+import { ColorPalette } from './module/color-palette.js';
+
 // Build canvas
 const buildCanvas = (parentContainerId) => {
 
@@ -50,3 +52,7 @@ const turnOnCanvas = (canvasId) => {
 }
 
 turnOnCanvas(buildCanvas('canvas'));
+
+// Initialize color palette obj
+const colorPalette = new ColorPalette('red', 'color');
+colorPalette.createSelector('color-palette-container');
