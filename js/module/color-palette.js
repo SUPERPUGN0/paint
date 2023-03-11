@@ -1,3 +1,5 @@
+
+
 // Class that create palette object and changes the DOM palette
 class ColorPalette {
     constructor(color, domColorsClass) {

@@ -1,0 +1,14 @@
+{
+  "name": "paint",
+  "version": "1.0.0",
+  "description": "Another js portfolio project that seems like Paint (I hope!)",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "superpugn0",
+  "license": "MIT",
+  "dependencies": {
+    "mocha": "^10.2.0"
+  }
+}
