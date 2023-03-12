@@ -4,6 +4,7 @@
 class ColorPalette {
     constructor(color, domColorsClass) {
         this.selectedColor = color;
+        this.domColorsClass = `.${domColorsClass}`;
         this.colors = [];
         this.colorsPalette = ['Red', 'Orange', 'Green', 'Purple', 'Blue'];
     }
@@ -28,10 +29,11 @@ class ColorPalette {
 
     // Display selected palette
     changePaletteColors() {
-        const domColors = document.querySelectorAll(domColorsClass)
+        let domColors = document.querySelectorAll(this.domColorsClass);
+        console.log(domColors[0])
 
-        for (let i = -1; i < this.colors.length; i++) {
-            domColors[i].style.backgroundColor = colors[i];
+        for (let i = 0; i < this.colors.length; i++) {
+            domColors[i].style.backgroundColor = this.colors[i];
         }
     }
 
@@ -53,6 +55,13 @@ class ColorPalette {
             const option = document.createElement('option');
             option.innerText = color;
             selector.appendChild(option);
+
+            // Add listener
+            option.addEventListener('click', () => {
+                this.setColor(color);
+                this.changePaletteColors();
+            })
+
         })
 
         // Append selector
