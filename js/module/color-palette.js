@@ -1,44 +1,38 @@
-
-
 // Class that create palette object and changes the DOM palette
 class ColorPalette {
-    constructor(color, domColorsClass) {
-        this.selectedColor = color;
-        this.domColorsClass = `.${domColorsClass}`;
-        this.colors = [];
-        this.colorsPalette = ['Red', 'Orange', 'Green', 'Purple', 'Blue'];
+    constructor(colorsContainer, domColorsClass, paletteContainer) {
+        this.colorsContainer = document.getElementById(colorsContainer);
+        this.domColorsClass = domColorsClass;
+        this.paletteContainer = paletteContainer;
+        this.jsonColors = []
     }
 
-    // Set palette based on passed color
-    setColor() {
-        switch (this.selectedColor) {
-            case "red":
-                this.colors.push('#FF0000');
-                this.colors.push('#FF7F7F');
-                this.colors.push('#FF4C4C');
-                this.colors.push('#FF2400');
-                this.colors.push('#FF6666');
-                this.colors.push('#FF1A1A');
-                this.colors.push('#FF8080');
-                this.colors.push('#FF7373');
-                this.colors.push('#FF99CC');
-                this.colors.push('#FF0033');
-                break;
-        }
+    // Display default dom colors
+    defaultPalette() {
+        const defaultColors = ['#ff0000', '#ffa500', '#ffff00', '#008000', '#0000ff', '#4b0082', '#ee82ee', '#808080', '#a52a2a', '#000000'];
+
+        defaultColors.forEach(iteratedColor => {
+            const color = document.createElement('div');
+            color.classList.add(this.domColorsClass);
+            color.style.backgroundColor = iteratedColor;
+            this.colorsContainer.appendChild(color);
+        })
     }
 
     // Display selected palette
-    changePaletteColors() {
-        let domColors = document.querySelectorAll(this.domColorsClass);
-        console.log(domColors[0])
+    changePaletteColors(color) {
+        let domColors = document.querySelectorAll(`.${this.domColorsClass}`);
 
-        for (let i = 0; i < this.colors.length; i++) {
-            domColors[i].style.backgroundColor = this.colors[i];
+        let selectedColor = this.jsonColors[color];
+
+        for (let i = 0; i < selectedColor.length; i++) {
+            domColors[i].style.backgroundColor = selectedColor[i];
         }
     }
 
     // Create color palette selector
     createSelector = (paletteContainerId) => {
+
         // Set where to put in the selector
         const paletteContainer = document.getElementById(paletteContainerId);
 
@@ -50,22 +44,36 @@ class ColorPalette {
         // Create html select element
         const selector = document.createElement('select');
 
+        // Array of displayed colors
+        const colorsPalette = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet', 'gray', 'brown', 'black'];
+
         // Create option based on the colorsPalette array
-        this.colorsPalette.forEach(color => {
+        colorsPalette.forEach(color => {
             const option = document.createElement('option');
             option.innerText = color;
             selector.appendChild(option);
 
             // Add listener
             option.addEventListener('click', () => {
-                this.setColor(color);
-                this.changePaletteColors();
+                this.changePaletteColors(color);
             })
 
         })
 
         // Append selector
         paletteContainer.appendChild(selector);
+    }
+
+    // Load colors from json
+    loadJsonColors() {
+        fetch('../../colors.json')
+            .then(response => response.json())
+            .then(jsonData => {
+                this.jsonColors = jsonData;
+
+                this.createSelector(this.paletteContainer);
+
+            })
     }
 }
 
